@@ -1,4 +1,4 @@
-#SassCompile
+#SassCompiler
 
 Compile sass/scss to css directly within Codiad.
 
