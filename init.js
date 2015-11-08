@@ -47,7 +47,6 @@
             setTimeout(function(){
                 _this.setSettings();
                 _this.sass.compile(scss, function(result) {
-                    console.log(result);
                     callback(result);
                 });
             }, 0);
@@ -73,7 +72,6 @@
         getMatchingFileOutOfTree: function(path) {
             var dir = this.__dirname(path);
             var basename = this.__basename(path);
-            console.log(path, dir, basename);
             
             if (dir == path) {
                 dir = "";
@@ -86,9 +84,6 @@
                         "_" + basename + ".css", basename + ".css"];
             for (var j = 0; j < this.tree.length; j++) {
                 for (var i = 0; i < cases.length; i++) {
-                    console.log(dir + cases[i]);
-                    console.log(this.tree[dir + cases[i]]);
-                    
                     if (this.tree[j] === (dir + cases[i])) {
                         return this.tree[j];
                     }
@@ -98,7 +93,6 @@
         },
         
         importer: function(request, done) {
-            console.log(request);
             var path = this.getMatchingFileOutOfTree(request.current);
             
             if (path === false) {
@@ -109,7 +103,7 @@
             } else {
                 path = this.base + "/" + path;
             }
-            console.log(109, path);
+            
             //var path = this.base + "/" + request.current;
             $.getJSON(this.path + 'controller.php?action=getContent&path=' + path, function(response){
                 var result = {};
