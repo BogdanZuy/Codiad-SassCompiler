@@ -33,7 +33,7 @@
             });
 
             // icons <
-            
+            alert(path);
             $('.sb-right-content hr:first').before('<div class="icon_bar"></div>');
             $('.icon_bar').html(
                 '<div class="line"><span class="icon icon-ccw disabled" title="Undo"/>'+
