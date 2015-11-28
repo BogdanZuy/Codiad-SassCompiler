@@ -33,13 +33,10 @@
             });
 
             // icons <
-            $('.sb-right-content hr:first').before('<div class="icon_bar"></div>');
+            $('.sb-right-content hr:first').before('<div class="icon_bar"><hr class="file-only sass"><a class="file-only sass"><span class="icon-code"></span>Compile Sass</a></div>');
             // $('.icon_bar').html(
             //     '<div class="line"><span class="icon icon-ccw disabled" title="Undo"/>'+
             //     '</div>');
-                
-            $('.icon_bar').append('<hr class="file-only sass">');
-            $('.icon_bar').append('<a class="file-only sass"><span class="icon-code"></span>Compile Sass</a>');
 
             amplify.subscribe('active.onFocus', function(path){
                 _this.activateIcons(path);
