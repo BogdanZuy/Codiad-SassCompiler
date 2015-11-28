@@ -80,6 +80,10 @@
         deactivateIcons: function(path) {
             $('.icon_bar .sass').addClass('disabled');
         },
+        
+        onDocumentChange: function() {
+            $('.icon_bar .sass').removeClass('disabled');
+        },
         // icons >
         
         compile: function(scss, callback) {
