@@ -33,16 +33,15 @@
             });
 
             // icons <
-            alert(codiad.active.getPath());
             $('.sb-right-content hr:first').before('<div class="icon_bar"></div>');
-            $('.icon_bar').html(
-                '<div class="line"><span class="icon icon-ccw disabled" title="Undo"/>'+
-                '</div>');
+            // $('.icon_bar').html(
+            //     '<div class="line"><span class="icon icon-ccw disabled" title="Undo"/>'+
+            //     '</div>');
                 
-            if (/(\.sass|\.scss)$/.test(path)) {
+            // if (/(\.sass|\.scss)$/.test(path)) {
                 $('.icon_bar').append('<hr class="file-only sass">');
                 $('.icon_bar').append('<a class="file-only sass" onclick="codiad.Sass.contextMenu($(\'#context-menu\').attr(\'data-path\'));"><span class="icon-code"></span>Compile Sass</a>');
-            }
+            // }
             
             amplify.subscribe('active.onFocus', function(path){
                 _this.activateIcons(path);
@@ -50,17 +49,17 @@
             amplify.subscribe('active.onClose', function(path){
                 _this.deactivateIcons(path);
             });
-            $('.icon_bar .icon:not(.disabled)').live('click',function(event){
+            $('.icon_bar .sass:not(.disabled)').live('click',function(event){
                 var item = event.target;
-                if ($(item).hasClass('icon-ccw')) {
-                    //_this.undo();
-                }
+                // if ($(item).hasClass('icon-ccw')) {
+                //     //_this.undo();
+                // }
             });
-            this.$onDocumentChange = this.onDocumentChange.bind(this);
-            amplify.subscribe('active.onOpen', function(path){
-                var session = codiad.editor.getActive().getSession();
-                session.addEventListener('change', _this.$onDocumentChange);
-            });
+            // this.$onDocumentChange = this.onDocumentChange.bind(this);
+            // amplify.subscribe('active.onOpen', function(path){
+            //     var session = codiad.editor.getActive().getSession();
+            //     session.addEventListener('change', _this.$onDocumentChange);
+            // });
             
             // icons >
             
@@ -74,6 +73,17 @@
                 $('.sass').remove();
             });
         },
+        
+        // icons <
+        activateIcons: function(path) {
+            $('.icon_bar .sass').removeClass('disabled');
+            this.onDocumentChange();
+        },
+        
+        deactivateIcons: function(path) {
+            $('.icon_bar .sass').addClass('disabled');
+        },
+        // icons >
         
         compile: function(scss, callback) {
             var _this = this;
