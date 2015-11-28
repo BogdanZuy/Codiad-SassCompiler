@@ -38,11 +38,9 @@
             //     '<div class="line"><span class="icon icon-ccw disabled" title="Undo"/>'+
             //     '</div>');
                 
-            // if (/(\.sass|\.scss)$/.test(path)) {
-                $('.icon_bar').append('<hr class="file-only sass">');
-                $('.icon_bar').append('<a class="file-only sass" onclick="codiad.Sass.contextMenu($(\'#context-menu\').attr(\'data-path\'));"><span class="icon-code"></span>Compile Sass</a>');
-            // }
-            
+            $('.icon_bar').append('<hr class="file-only sass">');
+            $('.icon_bar').append('<a class="file-only sass"><span class="icon-code"></span>Compile Sass</a>');
+
             amplify.subscribe('active.onFocus', function(path){
                 _this.activateIcons(path);
             });
@@ -51,17 +49,17 @@
             });
             $('.icon_bar .sass:not(.disabled)').live('click',function(event){
                 var item = event.target;
-                alert(codiad.active.getPath());
-                
-                // if ($(item).hasClass('icon-ccw')) {
-                //     //_this.undo();
-                // }
+                codiad.Sass.contextMenu(codiad.active.getPath());
             });
-            // this.$onDocumentChange = this.onDocumentChange.bind(this);
-            // amplify.subscribe('active.onOpen', function(path){
-            //     var session = codiad.editor.getActive().getSession();
-            //     session.addEventListener('change', _this.$onDocumentChange);
-            // });
+             this.$onDocumentChange = this.onDocumentChange.bind(this);
+             amplify.subscribe('active.onOpen', function(path){
+                 var session = codiad.editor.getActive().getSession();
+                 if (/(\.sass|\.scss)$/.test(codiad.active.getPath())) {
+                     _this.deactivateIcons(path);
+                 }
+                 
+                 session.addEventListener('change', _this.$onDocumentChange);
+             });
             
             // icons >
             
