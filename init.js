@@ -25,11 +25,44 @@
         
         init: function() {
             var _this = this;
+            
             $.getScript(this.path + "sass/sass.js", function(){
                 Sass.setWorkerUrl(_this.path + 'sass/sass.worker.js');
                 _this.sass = new Sass();
                 _this.sass.importer(_this.importer.bind(_this));
             });
+
+            // icons <
+            
+            $('.sb-right-content hr:first').before('<div class="icon_bar"></div>');
+            $('.icon_bar').html(
+                '<div class="line"><span class="icon icon-ccw disabled" title="Undo"/>'+
+                '</div>');
+                
+            if (/(\.sass|\.scss)$/.test(path)) {
+                $('.icon_bar').append('<hr class="file-only sass">');
+                $('.icon_bar').append('<a class="file-only sass" onclick="codiad.Sass.contextMenu($(\'#context-menu\').attr(\'data-path\'));"><span class="icon-code"></span>Compile Sass</a>');
+            }
+            
+            amplify.subscribe('active.onFocus', function(path){
+                _this.activateIcons(path);
+            });
+            amplify.subscribe('active.onClose', function(path){
+                _this.deactivateIcons(path);
+            });
+            $('.icon_bar .icon:not(.disabled)').live('click',function(event){
+                var item = event.target;
+                if ($(item).hasClass('icon-ccw')) {
+                    //_this.undo();
+                }
+            });
+            this.$onDocumentChange = this.onDocumentChange.bind(this);
+            amplify.subscribe('active.onOpen', function(path){
+                var session = codiad.editor.getActive().getSession();
+                session.addEventListener('change', _this.$onDocumentChange);
+            });
+            
+            // icons >
             
             amplify.subscribe('context-menu.onShow', function(obj){
                 if (/(\.sass|\.scss)$/.test(obj.path)) {
