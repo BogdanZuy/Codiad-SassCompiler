@@ -51,7 +51,7 @@
             });
             $('.icon_bar .sass:not(.disabled)').live('click',function(event){
                 var item = event.target;
-                alert($('#context-menu').attr('data-path'));
+                alert(codiad.active.getPath());
                 
                 // if ($(item).hasClass('icon-ccw')) {
                 //     //_this.undo();
